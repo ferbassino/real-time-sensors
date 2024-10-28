@@ -6,9 +6,8 @@ const path = require("path");
 const app = express();
 
 const port = process.env.PORT || 5000;
-const staticPath = path.resolve(__dirname, ".", "dist");
+const staticPath = path.resolve(__dirname, "dist");
 const server = http.createServer(app);
-console.log("averga que honda", staticPath);
 
 const io = new Server(server, {
   cors: {
@@ -17,10 +16,7 @@ const io = new Server(server, {
   },
 });
 io.on("connection", (socket) => {
-  console.log(socket.id);
-
   console.log("client connected");
-
   socket.on("sensorData", (data) => {
     socket.broadcast.emit("sensorData", data);
     // console.log(data);
